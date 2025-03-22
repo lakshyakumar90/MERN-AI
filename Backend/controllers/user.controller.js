@@ -12,6 +12,9 @@ const createUserController = async(req, res) => {
     try{
         const user = await createUser(req.body);
         const token = await user.generateJWT();
+
+        res.cookie('token', token, {httpOnly: true});
+
         return res.status(201).json({
             user,
             token
@@ -48,6 +51,8 @@ const loginController = async(req, res) => {
             })
         }
 
+        res.cookie('token', token, {httpOnly: true});
+
         const token = await user.generateJWT();
         return res.status(200).json({
             user,
@@ -60,9 +65,18 @@ const loginController = async(req, res) => {
     }
 }
 
+const profileController = async(req, res) => {
+    const user = req.user;
+
+    return res.status(200).json({
+        user
+    });
+}
+
 module.exports = {
     createUserController,
     loginController,
+    profileController
 }
 
 
