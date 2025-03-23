@@ -1,5 +1,6 @@
 const UserModel = require('../models/user.model');
 const jwt = require('jsonwebtoken');
+const redisClient = require('../services/redis.service');
 
 const userAuth = async (req, res, next) => {
     try {
@@ -9,6 +10,15 @@ const userAuth = async (req, res, next) => {
             return res.status(401).json({
                 message: 'Unauthorized '
             })
+        }
+
+        const isBlackListed = await redisClient.get(token);
+
+        if (isBlackListed) {
+            res.cookie('token', '', { httpOnly: true });
+            return res.status(401).json({
+                message: 'Unauthorized'
+            });
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);

@@ -1,43 +1,44 @@
 const { createUser } = require('../services/user.service');
 const UserModel = require('../models/user.model');
-const {validationResult} = require('express-validator');
+const { validationResult } = require('express-validator');
+const redisClient = require('../services/redis.service');
 
-const createUserController = async(req, res) => {
+const createUserController = async (req, res) => {
     const error = validationResult(req);
 
-    if(!error.isEmpty()) {
-        return res.status(400).json({error: error.array()});
+    if (!error.isEmpty()) {
+        return res.status(400).json({ error: error.array() });
     }
 
-    try{
+    try {
         const user = await createUser(req.body);
         const token = await user.generateJWT();
 
-        res.cookie('token', token, {httpOnly: true});
+        res.cookie('token', token, { httpOnly: true });
 
         return res.status(201).json({
             user,
             token
         });
-    } catch (err){
+    } catch (err) {
         return res.status(400).json({
             message: err.message
         })
     }
 }
 
-const loginController = async(req, res) => {
+const loginController = async (req, res) => {
     const error = validationResult(req);
 
-    if(!error.isEmpty()) {
-        return res.status(400).json({error: error.array()});
+    if (!error.isEmpty()) {
+        return res.status(400).json({ error: error.array() });
     }
 
     try {
-        const {email, password} = req.body;
-        const user = await UserModel.findOne({email}).select('+password');
+        const { email, password } = req.body;
+        const user = await UserModel.findOne({ email }).select('+password');
 
-        if(!user){
+        if (!user) {
             res.status(401).json({
                 message: 'User not found'
             })
@@ -45,27 +46,26 @@ const loginController = async(req, res) => {
 
         const isValid = await user.isValidPassword(password);
 
-        if(!isValid){
+        if (!isValid) {
             res.status(401).json({
                 message: 'Invalid password'
             })
         }
 
-        res.cookie('token', token, {httpOnly: true});
-
         const token = await user.generateJWT();
+        res.cookie('token', token, { httpOnly: true });
         return res.status(200).json({
             user,
             token
         });
-    } catch (err){
+    } catch (err) {
         return res.status(400).json({
             message: err.message
         })
     }
 }
 
-const profileController = async(req, res) => {
+const profileController = async (req, res) => {
     const user = req.user;
 
     return res.status(200).json({
@@ -73,10 +73,27 @@ const profileController = async(req, res) => {
     });
 }
 
+const logoutController = async(req, res) => {
+    try{
+        const token = req.cookies.token || req.headers.authorization.split(' ')[1];
+        redisClient.set(token, 'logout', 'EX', 60 * 60 * 24);
+        res.cookie(token, '', { httpOnly: true });
+
+        res.json({
+            message: "Logout successfully"
+        })
+    } catch (err) {
+        return res.status(400).json({
+            message: err.message
+        })
+    }
+}
+
 module.exports = {
     createUserController,
     loginController,
-    profileController
+    profileController,
+    logoutController
 }
 
 
