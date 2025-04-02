@@ -7,6 +7,8 @@ import About from "./components/pages/before-login/About";
 import Contact from "./components/pages/before-login/Contact";
 import Login from "./components/signup-login/Login";
 import Register from "./components/signup-login/Register";
+import Privacy from "./components/terms-policy/Privacy";
+import Terms from "./components/terms-policy/Terms";
 
 const App = () => {
   return (
@@ -20,7 +22,8 @@ const App = () => {
           <Route path="/features" element={<Features />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
         </Routes>
       </BrowserRouter>
     </div>
