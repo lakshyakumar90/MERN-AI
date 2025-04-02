@@ -6,7 +6,9 @@ const Navbar = () => {
   return (
     <nav className="navbar sticky top-0 w-full px-6 py-4 flex justify-between items-center bg-[#F0F8FF] z-10">
       <div className="flex items-center">
-        <img className="h-10 w-10" src="/logo.png" alt="Logo" />
+        <Link to="/">
+          <img className="h-10 w-10" src="/logo.png" alt="Logo" />
+        </Link>
       </div>
       <div className="flex-1 pl-[10%] flex justify-center gap-4">
         <Button variant="link" asChild>
