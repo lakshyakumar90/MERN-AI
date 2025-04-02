@@ -1,11 +1,11 @@
 import React from "react";
 import Navbar from "./Navbar";
-import First from "./pages/First";
-import FeaturesSummary from "./pages/FeaturesSummary";
-import Working from "./pages/Working";
-import Benefits from "./pages/Benefits";
-import SocialProof from "./pages/SocialProof";
-import PricingTeaser from "./pages/PricingTeaser";
+import First from "./before-partials/First";
+import FeaturesSummary from "./before-partials/FeaturesSummary";
+import Working from "./before-partials/Working";
+import Benefits from "./before-partials/Benefits";
+import SocialProof from "./before-partials/SocialProof";
+import PricingTeaser from "./before-partials/PricingTeaser";
 import Footer from "./Footer";
 
 const LandingPage = () => {
