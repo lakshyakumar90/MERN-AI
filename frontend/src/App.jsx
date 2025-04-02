@@ -5,6 +5,8 @@ import Pricing from "./components/pages/before-login/Pricing";
 import Features from "./components/pages/before-login/Features";
 import About from "./components/pages/before-login/About";
 import Contact from "./components/pages/before-login/Contact";
+import Login from "./components/signup-login/Login";
+import Register from "./components/signup-login/Register";
 
 const App = () => {
   return (
@@ -12,6 +14,8 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/features" element={<Features />} />
           <Route path="/about" element={<About />} />
