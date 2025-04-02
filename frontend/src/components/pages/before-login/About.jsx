@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Lightbulb, Handshake, Globe, Star, Twitter, Linkedin } from "lucide-react";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 const About = () => {
   const values = [
@@ -214,6 +215,7 @@ const About = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </section>
   );
 };

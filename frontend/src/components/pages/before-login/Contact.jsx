@@ -23,6 +23,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Mail, Twitter, Github, Linkedin, MessageCircle, BookOpen, Headphones, Activity } from "lucide-react";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -124,7 +125,7 @@ const Contact = () => {
                     <FormLabel>Subject</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
-                        <SelectTrigger>
+                        <SelectTrigger className="w-full">
                           <SelectValue placeholder="Select a subject" />
                         </SelectTrigger>
                       </FormControl>
@@ -240,6 +241,7 @@ const Contact = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </section>
   );
 };

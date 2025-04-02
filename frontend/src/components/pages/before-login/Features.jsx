@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Check, Play, Users, Brain, Box, Kanban, GraduationCap, Building2 } from "lucide-react";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 const Features = () => {
   const featureCategories = [
@@ -206,6 +207,7 @@ const Features = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </section>
   );
 };

@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
   return (
-    <nav className="navbar sticky top-0 w-full px-10 py-3 flex justify-between items-center gap-8 z-10 backdrop-blur-xl">
-      <section className="w-1/3 flex-shrink-0">
-        <img className="h-12 w-12" src="/logo.png" />
-      </section>
-      <section className="w-1/3 flex gap-2 flex-grow justify-center">
+    <nav className="navbar sticky top-0 w-full px-6 py-4 flex justify-between items-center bg-[#F0F8FF] z-10">
+      <div className="flex items-center">
+        <img className="h-10 w-10" src="/logo.png" alt="Logo" />
+      </div>
+      <div className="flex-1 pl-[10%] flex justify-center gap-4">
         <Button variant="link" asChild>
           <Link to="/">Home</Link>
         </Button>
@@ -24,15 +24,15 @@ const Navbar = () => {
         <Button variant="link" asChild>
           <Link to="/contact">Contact</Link>
         </Button>
-      </section>
-      <section className="w-1/3 flex justify-end space-x-4 flex-shrink-0">
+      </div>
+      <div className="flex items-center space-x-4">
         <Button variant="outline" asChild>
           <Link to="/login">Login</Link>
         </Button>
         <Button variant="default" asChild>
           <Link to="/register">Get Started</Link>
         </Button>
-      </section>
+      </div>
     </nav>
   );
 };

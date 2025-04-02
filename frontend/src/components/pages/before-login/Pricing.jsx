@@ -9,6 +9,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 const Pricing = () => {
   const [isAnnual, setIsAnnual] = useState(false);
@@ -247,6 +248,7 @@ const Pricing = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </section>
   );
 };
