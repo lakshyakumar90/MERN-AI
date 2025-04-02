@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 const Working = () => {
   const [activeStep, setActiveStep] = useState(0);
+  const [progress, setProgress] = useState(0);
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -18,8 +19,11 @@ const Working = () => {
       // Calculate progress based on scroll position
       const progress = Math.min(
         Math.max((windowHeight - containerTop) / containerHeight, 0),
-        1
+        1.3
       );
+      console.log(progress);
+      setProgress(progress);
+      
 
       // Set active step based on progress
       if (progress < 0.33) setActiveStep(0);
@@ -53,13 +57,13 @@ const Working = () => {
   ];
 
   return (
-    <section className="flex flex-col w-full md:w-4/5 mx-auto items-center px-4 md:px-5 py-10 relative overflow-clip">
-      <h1 className="font-[poppins] font-bold text-2xl md:text-4xl mb-6 md:mb-10 text-center sticky top-10 z-10">
+    <section ref={containerRef}  className="flex flex-col w-full md:w-4/5 mx-auto items-center px-4 md:px-5 py-10 relative overflow-clip">
+      <h1 className={`font-[poppins] font-bold text-2xl md:text-4xl mb-6 md:mb-10 text-center ${progress >= 1.2 ? 'block' : 'sticky'} top-10`}>
         From Idea to Execution in One Place
       </h1>
 
       {/* Steps */}
-      <div ref={containerRef} className="relative w-full mt-[20%]">
+      <div className="relative w-full mt-[20%]">
         {steps.map((step, index) => (
           <div
             key={index}

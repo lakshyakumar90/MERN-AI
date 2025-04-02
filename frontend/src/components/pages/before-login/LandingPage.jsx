@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import First from "./pages/First";
 import Features from "./pages/features";
 import Working from "./pages/Working";
+import Benefits from "./pages/Benefits";
 
 const LandingPage = () => {
   return (
@@ -11,6 +12,7 @@ const LandingPage = () => {
       <First />
       <Features />
       <Working />
+      <Benefits />
     </div>
   );
 };
