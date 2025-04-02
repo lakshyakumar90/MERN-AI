@@ -2,6 +2,7 @@ import React from "react";
 import LandingPage from "./components/pages/before-login/LandingPage";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Pricing from "./components/pages/before-login/Pricing";
+import Features from "./components/pages/before-login/Features";
 
 const App = () => {
   return (
@@ -10,7 +11,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/pricing" element={<Pricing />} />
-          <Route path="/features" element={<Pricing />} />
+          <Route path="/features" element={<Features />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/pricing" element={<Pricing />} />
 
