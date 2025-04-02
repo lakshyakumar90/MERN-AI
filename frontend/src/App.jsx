@@ -10,6 +10,10 @@ const App = () => {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/features" element={<Pricing />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/pricing" element={<Pricing />} />
+
         </Routes>
       </BrowserRouter>
     </div>

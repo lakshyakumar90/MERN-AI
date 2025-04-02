@@ -1,7 +1,7 @@
 import React from "react";
 import SpotlightCard from "@/components/reactbits-components/SpotlightCard/SpotlightCard";
 
-const Features = () => {
+const FeaturesSummary = () => {
   const features = [
     {
       title: "Real-Time Collaboration",
@@ -83,4 +83,4 @@ const Features = () => {
   );
 };
 
-export default Features;
+export default FeaturesSummary;

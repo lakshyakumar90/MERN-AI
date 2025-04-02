@@ -116,9 +116,9 @@ const Pricing = () => {
   ];
 
   return (
-    <>
+    <section className="relative">
       <Navbar />
-      <section className="flex flex-col w-full items-center pt-[10%] min-h-screen px-4 md:px-8 py-12">
+      <section className="flex flex-col w-full items-center pt-[5%] min-h-screen px-4 md:px-8 py-12">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h1 className="font-[poppins] font-bold text-3xl md:text-4xl mb-4">
@@ -247,7 +247,7 @@ const Pricing = () => {
           </div>
         </div>
       </section>
-    </>
+    </section>
   );
 };
 

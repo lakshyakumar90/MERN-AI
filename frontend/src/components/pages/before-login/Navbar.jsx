@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
   return (
-    <nav className="navbar absolute top-0 w-full  px-10 py-3 flex justify-between items-center gap-8">
+    <nav className="navbar sticky top-0 w-full px-10 py-3 flex justify-between items-center gap-8 z-10 backdrop-blur-xl">
       <section className="w-1/3 flex-shrink-0">
         <img className="h-12 w-12" src="/logo.png" />
       </section>
