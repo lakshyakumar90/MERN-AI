@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "./Navbar";
 import First from "./pages/First";
 import Features from "./pages/features";
+import Working from "./pages/Working";
 
 const LandingPage = () => {
   return (
@@ -9,6 +10,7 @@ const LandingPage = () => {
       <Navbar />
       <First />
       <Features />
+      <Working />
     </div>
   );
 };
