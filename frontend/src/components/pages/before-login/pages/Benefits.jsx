@@ -52,7 +52,7 @@ const Benefits = () => {
 
       {/* CTA Button */}
       <div className="mt-12">
-        <Button variant="default" className="bg-[#774BE5]" asChild>
+        <Button variant="default" className="bg-[#774BE5] hover:bg-[#774BE5]/90" asChild>
           <Link to="/pricing">Choose Your Plan</Link>
         </Button>
       </div>

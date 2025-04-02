@@ -89,7 +89,7 @@ const Working = () => {
           </div>
         ))}
         <div className="relative w-full flex items-center justify-center">
-        <Button variant="default" className="bg-[#774BE5] absolute bottom-[5rem]" asChild>
+        <Button variant="default" className="bg-[#774BE5] hover:bg-[#774BE5]/90 absolute bottom-[5rem]" asChild>
           <Link to="/register">Try It Now</Link>
         </Button>
         </div>

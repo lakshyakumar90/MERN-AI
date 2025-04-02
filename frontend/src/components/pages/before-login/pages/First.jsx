@@ -14,7 +14,7 @@ const First = () => {
         </h2>
 
         <section className="">
-          <Button variant="default" className="w-48 h-10 text-lg bg-[#774BE5]">
+          <Button variant="default" className="w-48 h-10 text-lg bg-[#774BE5] hover:bg-[#774BE5]/90">
             <Link to="/register">Get Started</Link>
           </Button>
         </section>

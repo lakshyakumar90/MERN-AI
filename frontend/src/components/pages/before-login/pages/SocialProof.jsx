@@ -88,7 +88,7 @@ const SocialProof = () => {
 
       {/* CTA */}
       <div className="mt-12">
-        <Button variant="default" className="bg-[#774BE5]" asChild>
+        <Button variant="default" className="bg-[#774BE5] hover:bg-[#774BE5]/90" asChild>
           <Link to="/register">Join Our Community</Link>
         </Button>
       </div>

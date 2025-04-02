@@ -5,6 +5,7 @@ import Features from "./pages/features";
 import Working from "./pages/Working";
 import Benefits from "./pages/Benefits";
 import SocialProof from "./pages/SocialProof";
+import PricingTeaser from "./pages/PricingTeaser";
 
 const LandingPage = () => {
   return (
@@ -15,6 +16,7 @@ const LandingPage = () => {
       <Working />
       <Benefits />
       <SocialProof />
+      <PricingTeaser />
     </div>
   );
 };
