@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 
 const connect = require('./db/db');
 const userRouter = require('./routes/user.routes');
+const projectRouter = require('./routes/project.routes');
 
 connect();
 
@@ -18,5 +19,11 @@ app.use(cors());
 app.use(morgan('dev'));
 
 app.use('/api/user', userRouter);
+app.use('/api/project', projectRouter);
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
 
 module.exports = app;
