@@ -5,6 +5,12 @@ const Schema = mongoose.Schema;
 
 
 const UserSchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+        min: [3, 'Too short, min is 3 characters'],
+        max: [50, 'Too long, max is 50 characters'],
+    },
     email: {
         type: String,
         required: true,
@@ -23,7 +29,7 @@ const UserSchema = new Schema({
     },
 })
 
-UserSchema.statics.hashPassword = async function (password){
+UserSchema.statics.hashPassword = async function (password) {
     return bcrypt.hash(password, 10);
 }
 
@@ -34,7 +40,7 @@ UserSchema.methods.isValidPassword = async function (password) {
 }
 
 UserSchema.methods.generateJWT = function () {
-    return jwt.sign({email: this.email}, process.env.JWT_SECRET, {expiresIn: '24h'});
+    return jwt.sign({ email: this.email }, process.env.JWT_SECRET, { expiresIn: '24h' });
 }
 
 const User = mongoose.model('user', UserSchema);
