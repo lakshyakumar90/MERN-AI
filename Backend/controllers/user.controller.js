@@ -89,11 +89,31 @@ const logoutController = async(req, res) => {
     }
 }
 
+const getAllUsersController = async (req, res) => {
+    const userId = req.user._id;
+
+    if (!userId) {
+        return res.status(400).json({
+            message: 'User not found'
+        })
+    }
+
+    try {
+        const allUsers = await UserModel.find({ _id: { $ne: userId } });
+        return res.status(200).json(allUsers);
+    } catch (err) {
+        return res.status(400).json({
+            message: err.message
+        })
+    }
+}
+
 module.exports = {
     createUserController,
     loginController,
     profileController,
-    logoutController
+    logoutController,
+    getAllUsersController
 }
 
 
