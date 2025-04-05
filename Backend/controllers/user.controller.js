@@ -14,7 +14,8 @@ const createUserController = async (req, res) => {
         const user = await createUser(req.body);
         const token = await user.generateJWT();
 
-        res.cookie('token', token, { httpOnly: true });
+        // Set the token as a cookie with a 1-day expiration
+        res.cookie('token', token, { expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) });
 
         return res.status(201).json({
             user,
@@ -39,21 +40,22 @@ const loginController = async (req, res) => {
         const user = await UserModel.findOne({ email }).select('+password');
 
         if (!user) {
-            res.status(401).json({
+            return res.status(401).json({
                 message: 'User not found'
-            })
+            });
         }
 
         const isValid = await user.isValidPassword(password);
 
         if (!isValid) {
-            res.status(401).json({
+            return res.status(401).json({
                 message: 'Invalid password'
-            })
+            });
         }
 
         const token = await user.generateJWT();
-        res.cookie('token', token, { httpOnly: true });
+        // Set the token as a cookie with a 1-day expiration
+        res.cookie('token', token, { expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) });
         return res.status(200).json({
             user,
             token
@@ -73,15 +75,17 @@ const profileController = async (req, res) => {
     });
 }
 
-const logoutController = async(req, res) => {
-    try{
+const logoutController = async (req, res) => {
+    try {
         const token = req.cookies.token || req.headers.authorization.split(' ')[1];
         redisClient.set(token, 'logout', 'EX', 60 * 60 * 24);
-        res.cookie(token, '', { httpOnly: true });
+        // Clear the token cookie
+        res.cookie('token', '', { expires: new Date(Date.now()) });
+        res.clearCookie('session');
 
         res.json({
             message: "Logout successfully"
-        })
+        });
     } catch (err) {
         return res.status(400).json({
             message: err.message

@@ -16,28 +16,32 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Github, Twitter, Eye, EyeOff } from "lucide-react";
 import Navbar from "../pages/before-login/Navbar";
+import axiosInstance from "@/config/axios";
 
-const formSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  password: z.string()
-    .min(8, "Password must be at least 8 characters")
-    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-    .regex(/[0-9]/, "Password must contain at least one number"),
-  confirmPassword: z.string(),
-  terms: z.boolean().refine((val) => val === true, {
-    message: "You must accept the terms and conditions",
-  }),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"],
-});
+const formSchema = z
+  .object({
+    name: z.string().min(2, "Name must be at least 2 characters"),
+    email: z.string().email("Invalid email address"),
+    password: z
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+      .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+      .regex(/[0-9]/, "Password must contain at least one number"),
+    confirmPassword: z.string(),
+    terms: z.boolean().refine((val) => val === true, {
+      message: "You must accept the terms and conditions",
+    }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,8 +54,20 @@ const Register = () => {
   });
 
   function onSubmit(values) {
-    console.log(values);
-    // Handle registration submission
+    axiosInstance
+      .post("/api/user/register", {
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      })
+      .then((response) => {
+        console.log("Registration successful", response.data);
+        // Redirect or show success message
+      })
+      .catch((error) => {
+        console.error("Registration failed", error.response.data);
+        // Show error message
+      });
   }
 
   return (
@@ -61,14 +77,19 @@ const Register = () => {
         <div className="w-full max-w-md mx-auto">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="font-[poppins] font-bold text-3xl mb-2">Create an Account</h1>
+            <h1 className="font-[poppins] font-bold text-3xl mb-2">
+              Create an Account
+            </h1>
             <p className="text-gray-600">Join our community of developers</p>
           </div>
 
           {/* Registration Form */}
           <div className="bg-white p-8 rounded-2xl shadow-sm">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-6"
+              >
                 <FormField
                   control={form.control}
                   name="name"
@@ -89,7 +110,10 @@ const Register = () => {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="your.email@example.com" {...field} />
+                        <Input
+                          placeholder="your.email@example.com"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -103,10 +127,10 @@ const Register = () => {
                       <FormLabel>Password</FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <Input 
-                            type={showPassword ? "text" : "password"} 
-                            placeholder="••••••••" 
-                            {...field} 
+                          <Input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="••••••••"
+                            {...field}
                           />
                           <button
                             type="button"
@@ -133,14 +157,16 @@ const Register = () => {
                       <FormLabel>Confirm Password</FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <Input 
-                            type={showConfirmPassword ? "text" : "password"} 
-                            placeholder="••••••••" 
-                            {...field} 
+                          <Input
+                            type={showConfirmPassword ? "text" : "password"}
+                            placeholder="••••••••"
+                            {...field}
                           />
                           <button
                             type="button"
-                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                            onClick={() =>
+                              setShowConfirmPassword(!showConfirmPassword)
+                            }
                             className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
                           >
                             {showConfirmPassword ? (
@@ -169,11 +195,17 @@ const Register = () => {
                       <div className="space-y-1 leading-none">
                         <FormLabel>
                           I agree to the{" "}
-                          <Link to="/terms" className="text-purple-600 hover:text-purple-500 hover:underline">
+                          <Link
+                            to="/terms"
+                            className="text-purple-600 hover:text-purple-500 hover:underline"
+                          >
                             Terms of Service
                           </Link>{" "}
                           and{" "}
-                          <Link to="/privacy" className="text-purple-600 hover:text-purple-500 hover:underline">
+                          <Link
+                            to="/privacy"
+                            className="text-purple-600 hover:text-purple-500 hover:underline"
+                          >
                             Privacy Policy
                           </Link>
                         </FormLabel>
@@ -182,7 +214,10 @@ const Register = () => {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full bg-[#774BE5] hover:bg-[#774BE5]/90">
+                <Button
+                  type="submit"
+                  className="w-full bg-[#774BE5] hover:bg-[#774BE5]/90"
+                >
                   Create Account
                 </Button>
               </form>
@@ -194,7 +229,9 @@ const Register = () => {
                 <div className="w-full border-t border-gray-200"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                <span className="px-2 bg-white text-gray-500">
+                  Or continue with
+                </span>
               </div>
             </div>
 
@@ -213,7 +250,10 @@ const Register = () => {
             {/* Sign In Link */}
             <p className="text-center mt-8 text-gray-600">
               Already have an account?{" "}
-              <Link to="/login" className="text-purple-600 hover:text-purple-500 hover:underline">
+              <Link
+                to="/login"
+                className="text-purple-600 hover:text-purple-500 hover:underline"
+              >
                 Sign in
               </Link>
             </p>
