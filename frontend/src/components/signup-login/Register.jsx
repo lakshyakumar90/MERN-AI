@@ -17,6 +17,8 @@ import * as z from "zod";
 import { Github, Twitter, Eye, EyeOff } from "lucide-react";
 import Navbar from "../pages/before-login/Navbar";
 import axiosInstance from "@/config/axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/utils/store/slices/userSlice";
 
 const formSchema = z
   .object({
@@ -41,6 +43,9 @@ const formSchema = z
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -54,6 +59,8 @@ const Register = () => {
   });
 
   function onSubmit(values) {
+    setIsLoading(true);
+    setError(null);
     axiosInstance
       .post("/api/user/register", {
         name: values.name,
@@ -61,11 +68,14 @@ const Register = () => {
         password: values.password,
       })
       .then((response) => {
-        console.log("Registration successful", response.data);
+        setIsLoading(false);
+        dispatch(setUser(response.data.user));
         // Redirect or show success message
       })
       .catch((error) => {
         console.error("Registration failed", error.response.data);
+        setError(error.response.data.message);
+        setIsLoading(false);
         // Show error message
       });
   }
@@ -214,11 +224,15 @@ const Register = () => {
                     </FormItem>
                   )}
                 />
+                {error && (
+                  <p className="text-red-500 text-sm">{error}</p>
+                )}
                 <Button
                   type="submit"
-                  className="w-full bg-[#774BE5] hover:bg-[#774BE5]/90"
+                  className="w-full bg-[#774BE5] hover:bg-[#774BE5]/90 cursor-pointer"
+                  disabled={isLoading}
                 >
-                  Create Account
+                  {isLoading ? "Creating Account..." : "Create Account"}
                 </Button>
               </form>
             </Form>

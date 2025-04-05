@@ -16,6 +16,9 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Github, Twitter, Eye, EyeOff } from "lucide-react";
 import Navbar from "../pages/before-login/Navbar";
+import axiosInstance from "@/config/axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/utils/store/slices/userSlice";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -25,6 +28,10 @@ const formSchema = z.object({
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const dispatch = useDispatch();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -35,8 +42,24 @@ const Login = () => {
   });
 
   function onSubmit(values) {
-    console.log(values);
-    
+    setIsLoading(true);
+    setError(null);
+    axiosInstance
+      .post("/api/user/login", {
+        email: values.email,
+        password: values.password,
+      })
+      .then((response) => {
+        setIsLoading(false);
+        dispatch(setUser(response.data.user));
+        // Handle successful login here, e.g., redirect to dashboard
+      })
+      .catch((error) => {
+        console.error(error);
+        setError(error.response.data.message);
+        setIsLoading(false);
+        // Handle error here, e.g., show error message
+      });
   }
 
   return (
@@ -46,14 +69,19 @@ const Login = () => {
         <div className="w-full max-w-md mx-auto">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="font-[poppins] font-bold text-3xl mb-2">Welcome Back</h1>
+            <h1 className="font-[poppins] font-bold text-3xl mb-2">
+              Welcome Back
+            </h1>
             <p className="text-gray-600">Sign in to your account to continue</p>
           </div>
 
           {/* Login Form */}
           <div className="bg-white p-8 rounded-2xl shadow-sm">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-6"
+              >
                 <FormField
                   control={form.control}
                   name="email"
@@ -61,7 +89,10 @@ const Login = () => {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="your.email@example.com" {...field} />
+                        <Input
+                          placeholder="your.email@example.com"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -75,10 +106,10 @@ const Login = () => {
                       <FormLabel>Password</FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <Input 
-                            type={showPassword ? "text" : "password"} 
-                            placeholder="••••••••" 
-                            {...field} 
+                          <Input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="••••••••"
+                            {...field}
                           />
                           <button
                             type="button"
@@ -109,7 +140,9 @@ const Login = () => {
                             onCheckedChange={field.onChange}
                           />
                         </FormControl>
-                        <FormLabel className="font-normal">Remember me</FormLabel>
+                        <FormLabel className="font-normal">
+                          Remember me
+                        </FormLabel>
                       </FormItem>
                     )}
                   />
@@ -120,8 +153,15 @@ const Login = () => {
                     Forgot password?
                   </Link>
                 </div>
-                <Button type="submit" className="w-full bg-[#774BE5] hover:bg-[#774BE5]/90">
-                  Sign In
+                {error && (
+                  <p className="text-red-500 text-sm">{error}</p>
+                )}
+                <Button
+                  type="submit"
+                  className="w-full bg-[#774BE5] hover:bg-[#774BE5]/90 cursor-pointer"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Signing In..." : "Sign In"}
                 </Button>
               </form>
             </Form>
@@ -132,7 +172,9 @@ const Login = () => {
                 <div className="w-full border-t border-gray-200"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                <span className="px-2 bg-white text-gray-500">
+                  Or continue with
+                </span>
               </div>
             </div>
 
@@ -151,7 +193,10 @@ const Login = () => {
             {/* Sign Up Link */}
             <p className="text-center mt-8 text-gray-600">
               Don't have an account?{" "}
-              <Link to="/register" className="text-purple-600 hover:text-purple-500 hover:underline">
+              <Link
+                to="/register"
+                className="text-purple-600 hover:text-purple-500 hover:underline"
+              >
                 Sign up
               </Link>
             </p>

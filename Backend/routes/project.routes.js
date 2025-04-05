@@ -13,7 +13,7 @@ projectRouter.post("/create", userAuth,
 
 projectRouter.get("/all", userAuth, getAllProjectsController);
 
-projectRouter.post("/add-user", userAuth,
+projectRouter.put("/add-user", userAuth,
     body("projectId").notEmpty().withMessage("Project ID is required"),
     body("users").isArray({ min: 1 }).withMessage("Users is required").bail()
         .custom((users) => users.every(user => typeof user === 'string')).withMessage("Invalid userId(s) in users array"),

@@ -17,8 +17,15 @@ const createUserController = async (req, res) => {
         // Set the token as a cookie with a 1-day expiration
         res.cookie('token', token, { expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) });
 
+        // Create a user object without the password
+        const userResponse = {
+            _id: user._id,
+            name: user.name,
+            email: user.email
+        };
+
         return res.status(201).json({
-            user,
+            user: userResponse,
             token
         });
     } catch (err) {
@@ -56,8 +63,16 @@ const loginController = async (req, res) => {
         const token = await user.generateJWT();
         // Set the token as a cookie with a 1-day expiration
         res.cookie('token', token, { expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) });
+
+        // Create a user object without the password
+        const userResponse = {
+            _id: user._id,
+            name: user.name,
+            email: user.email
+        };
+
         return res.status(200).json({
-            user,
+            user: userResponse,
             token
         });
     } catch (err) {

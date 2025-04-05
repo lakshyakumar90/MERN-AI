@@ -21,10 +21,8 @@ const Working = () => {
         Math.max((windowHeight - containerTop) / containerHeight, 0),
         1.3
       );
-      console.log(progress);
       setProgress(progress);
       
-
       // Set active step based on progress
       if (progress < 0.33) setActiveStep(0);
       else if (progress < 0.66) setActiveStep(1);
