@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import Navbar from "../pages/before-login/Navbar";
+import Navbar from "@/components/pages/before-login/Navbar";
 
 const Terms = () => {
   return (
@@ -21,8 +21,8 @@ const Terms = () => {
             <div>
               <h2 className="font-[poppins] font-semibold text-xl mb-4">Introduction</h2>
               <p className="text-gray-700 leading-relaxed">
-                Welcome to CodeCollab! These Terms and Conditions ("Terms") govern your use of our collaborative 
-                coding platform, including our website, services, and features (collectively, "the Service"). 
+                Welcome to CodeCollab! These Terms and Conditions ("Terms") govern your use of our collaborative
+                coding platform, including our website, services, and features (collectively, "the Service").
                 By accessing or using the Service, you agree to be bound by these Terms and our{" "}
                 <Link to="/privacy" className="text-purple-600 hover:text-purple-500 hover:underline">
                   Privacy Policy
@@ -53,7 +53,7 @@ const Terms = () => {
             {/* Use of the Service */}
             <div>
               <h2 className="font-[poppins] font-semibold text-xl mb-4">3. Use of the Service</h2>
-              
+
               <div className="space-y-4">
                 <div>
                   <h3 className="font-semibold text-lg mb-2">a. Permitted Use</h3>
@@ -123,7 +123,7 @@ const Terms = () => {
             <div>
               <h2 className="font-[poppins] font-semibold text-xl mb-4">7. Limitation of Liability</h2>
               <p className="text-gray-700">
-                To the fullest extent permitted by law, CodeCollab, its affiliates, and partners are not liable 
+                To the fullest extent permitted by law, CodeCollab, its affiliates, and partners are not liable
                 for indirect, incidental, or consequential damages arising from your use of the Service.
               </p>
             </div>
@@ -132,7 +132,7 @@ const Terms = () => {
             <div>
               <h2 className="font-[poppins] font-semibold text-xl mb-4">8. Indemnification</h2>
               <p className="text-gray-700">
-                You agree to indemnify and hold CodeCollab, its officers, and employees harmless from claims, 
+                You agree to indemnify and hold CodeCollab, its officers, and employees harmless from claims,
                 losses, or damages arising from your use of the Service.
               </p>
             </div>

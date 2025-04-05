@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import Navbar from "../pages/before-login/Navbar";
+import Navbar from "@/components/pages/before-login/Navbar";
 
 const Privacy = () => {
   return (
@@ -21,9 +21,9 @@ const Privacy = () => {
             <div>
               <h2 className="font-[poppins] font-semibold text-xl mb-4">Introduction</h2>
               <p className="text-gray-700 leading-relaxed">
-                At CodeCollab, we value your privacy and are committed to protecting your personal information. 
-                This Privacy Policy explains how we collect, use, disclose, and safeguard your data when you use 
-                our collaborative coding platform, including our website, services, and features (collectively, "the Service"). 
+                At CodeCollab, we value your privacy and are committed to protecting your personal information.
+                This Privacy Policy explains how we collect, use, disclose, and safeguard your data when you use
+                our collaborative coding platform, including our website, services, and features (collectively, "the Service").
                 By using the Service, you agree to the terms outlined in this policy.
               </p>
             </div>
@@ -32,7 +32,7 @@ const Privacy = () => {
             <div>
               <h2 className="font-[poppins] font-semibold text-xl mb-4">1. Information We Collect</h2>
               <p className="text-gray-700 mb-4">We collect information to provide and improve the Service. This may include:</p>
-              
+
               <div className="space-y-4">
                 <div>
                   <h3 className="font-semibold text-lg mb-2">a. Information You Provide</h3>
@@ -129,7 +129,7 @@ const Privacy = () => {
             <div>
               <h2 className="font-[poppins] font-semibold text-xl mb-4">7. Third-Party Links and Services</h2>
               <p className="text-gray-700">
-                The Service may link to external sites or integrate with third-party tools (e.g., GitHub). 
+                The Service may link to external sites or integrate with third-party tools (e.g., GitHub).
                 We're not responsible for their privacy practices. Review their policies before use.
               </p>
             </div>
@@ -138,7 +138,7 @@ const Privacy = () => {
             <div>
               <h2 className="font-[poppins] font-semibold text-xl mb-4">8. Children's Privacy</h2>
               <p className="text-gray-700">
-                The Service is not intended for users under 13 (or 16 in some regions). We do not knowingly collect 
+                The Service is not intended for users under 13 (or 16 in some regions). We do not knowingly collect
                 data from children. If we learn of such data, we will delete it promptly.
               </p>
             </div>
@@ -147,7 +147,7 @@ const Privacy = () => {
             <div>
               <h2 className="font-[poppins] font-semibold text-xl mb-4">9. Changes to This Policy</h2>
               <p className="text-gray-700">
-                We may update this Privacy Policy to reflect changes in our practices or legal requirements. 
+                We may update this Privacy Policy to reflect changes in our practices or legal requirements.
                 We'll notify you of significant updates via email or a notice on the Service.
               </p>
             </div>
@@ -175,4 +175,4 @@ const Privacy = () => {
   );
 };
 
-export default Privacy; 
+export default Privacy;

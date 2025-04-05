@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../store/slices/userSlice';
+import { setUser } from '@/utils/store/slices/userSlice';
 import axiosInstance from '@/config/axios';
 
 const useAuth = () => {
@@ -29,4 +29,4 @@ const useAuth = () => {
     }, [dispatch]);
 };
 
-export default useAuth; 
+export default useAuth;

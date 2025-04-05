@@ -1,18 +1,26 @@
 import React from "react";
-import LandingPage from "./components/pages/before-login/LandingPage";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import Pricing from "./components/pages/before-login/Pricing";
-import Features from "./components/pages/before-login/Features";
-import About from "./components/pages/before-login/About";
-import Contact from "./components/pages/before-login/Contact";
-import Login from "./components/signup-login/Login";
-import Register from "./components/signup-login/Register";
-import Privacy from "./components/terms-policy/Privacy";
-import Terms from "./components/terms-policy/Terms";
 import { useSelector } from "react-redux";
-import { selectUser } from "./utils/store/slices/userSlice";
-import ProtectedRoute from "./components/auth/ProtectedRoute";
-import useAuth from "./utils/hooks/useAuth";
+
+// Page components
+import LandingPage from "@/components/pages/before-login/LandingPage";
+import Pricing from "@/components/pages/before-login/Pricing";
+import Features from "@/components/pages/before-login/Features";
+import About from "@/components/pages/before-login/About";
+import Contact from "@/components/pages/before-login/Contact";
+
+// Auth components
+import Login from "@/components/auth/Login";
+import Register from "@/components/auth/Register";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
+
+// Policy components
+import Privacy from "@/components/terms-policy/Privacy";
+import Terms from "@/components/terms-policy/Terms";
+
+// Utils and hooks
+import { selectUser } from "@/utils/store/slices/userSlice";
+import useAuth from "@/utils/hooks/useAuth";
 
 const App = () => {
   const user = useSelector(selectUser);
