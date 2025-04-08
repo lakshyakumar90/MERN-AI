@@ -10,7 +10,7 @@ import Footer from "./Footer";
 
 const LandingPage = () => {
   return (
-    <div>
+    <div className="max-w-7xl mx-auto relative">
       <Navbar />
       <First />
       <FeaturesSummary />

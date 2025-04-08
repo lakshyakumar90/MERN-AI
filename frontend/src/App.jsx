@@ -21,22 +21,21 @@ import Terms from "@/components/terms-policy/Terms";
 // Utils and hooks
 import { selectUser } from "@/utils/store/slices/userSlice";
 import useAuth from "@/utils/hooks/useAuth";
+import Home from "./components/pages/after-login/Home";
 
 const App = () => {
   const user = useSelector(selectUser);
   useAuth(); // This will verify the user's token and set the user in the store
 
   return (
-    <div className="text-black bg-[#F0F8FF] max-w-7xl mx-auto relative">
+    <div className="text-black bg-[#F0F8FF] relative">
       <BrowserRouter>
         <Routes>
           <Route
             path="/"
             element={
               user ? (
-                <div className="flex items-center justify-center min-h-screen">
-                  <h1 className="text-2xl font-bold">Welcome, {user.name}!</h1>
-                </div>
+                <Home />
               ) : (
                 <LandingPage />
               )
