@@ -26,7 +26,7 @@ app.use(cors({
 
 app.use(morgan('dev'));
 
-app.use('/api/user', userRouter);
+app.use('/api/users', userRouter);
 app.use('/api/project', projectRouter);
 
 app.use((err, req, res, next) => {

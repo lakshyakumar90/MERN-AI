@@ -16,6 +16,8 @@ const UserSchema = new Schema({
         required: true,
         unique: true,
         trim: true,
+        lowercase: true,
+        match: [/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'],
         minlength: [3, 'Too short, min is 3 characters'],
         maxlength: [50, 'Too long, max is 50 characters'],
     },
