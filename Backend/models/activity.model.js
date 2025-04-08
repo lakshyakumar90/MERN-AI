@@ -9,11 +9,16 @@ const ActivitySchema = new Schema({
     },
     action: {
       type: String, // e.g., 'created_project', 'edited_file', 'invited_user'
-      required: true
+      required: true,
+      enum: [
+        'created_project', 'edited_file', 'invited_user',
+        'created_diagram', 'edited_diagram', 'deleted_diagram' // New actions
+      ]
     },
     target: {
       type: String, // e.g., 'project', 'file', 'user'
-      required: true
+      required: true,
+      enum: ['project', 'file', 'user', 'diagram']
     },
     targetId: {
       type: Schema.Types.ObjectId,

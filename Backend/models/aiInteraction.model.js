@@ -13,14 +13,15 @@ const AIInteractionSchema = new Schema({
     },
     type: {
       type: String, // e.g., 'code_suggestion', 'bug_fix', 'documentation'
-      required: true
+      required: true,
+      enum: ['code_suggestion', 'bug_fix', 'documentation', 'diagram_generation']
     },
     input: {
       type: String, // What the user asked for
       required: true
     },
     output: {
-      type: String, // AI-generated response
+      type: Schema.Types.Mixed, // AI-generated response
       required: true
     },
     feedback: {

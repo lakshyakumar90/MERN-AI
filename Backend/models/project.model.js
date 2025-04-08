@@ -32,6 +32,10 @@ const ProjectSchema = new Schema({
         user: { type: Schema.Types.ObjectId, ref: 'User' },
         role: { type: String, enum: ['admin', 'editor', 'viewer'], default: 'editor' }
     }],
+    diagrams: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Diagram'
+    }],
     files: [{
         type: Schema.Types.ObjectId,
         ref: 'File'
