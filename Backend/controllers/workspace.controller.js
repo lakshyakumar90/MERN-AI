@@ -1,4 +1,4 @@
-const express = require('express');
+const mongoose = require('mongoose');
 const { validationResult } = require('express-validator');
 const { createWorkspace } = require('../services/workspace.service');
 const Workspace = require('../models/workspace.model');
@@ -58,7 +58,35 @@ const getWorkspaceController = async (req, res) => {
     }
 }
 
+const getWorkspaceByIdController = async (req, res) => {
+    try {
+        const workspaceId = req.params.workspaceId;
+
+        if(!mongoose.Types.ObjectId.isValid(workspaceId)){
+            return res.status(400).json({
+                message: 'Invalid workspace ID'
+            })
+        }
+
+        const workspace = await Workspace.findById(workspaceId);
+
+        if (!workspace) {
+            return res.status(404).json({
+                message: 'Workspace not found'
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            workspace
+        })
+    } catch (err) {
+
+    }
+}
+
 module.exports = {
     createWorkspaceController,
-    getWorkspaceController
+    getWorkspaceController,
+    getWorkspaceByIdController
 }

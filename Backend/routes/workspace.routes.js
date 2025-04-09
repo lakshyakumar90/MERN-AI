@@ -1,6 +1,6 @@
 const express = require('express');
 const { userAuth } = require('../middlewares/auth.middleware');
-const { createWorkspaceController, getWorkspaceController } = require('../controllers/workspace.controller');
+const { createWorkspaceController, getWorkspaceController, getWorkspaceByIdController } = require('../controllers/workspace.controller');
 const { body } = require('express-validator');
 
 const workspaceRouter = express.Router();
@@ -14,5 +14,7 @@ workspaceRouter.post('/workspace',
 )
 
 workspaceRouter.get('/workspace', userAuth, getWorkspaceController);
+
+workspaceRouter.get('/workspace/:workspaceId', userAuth, getWorkspaceByIdController);
 
 module.exports = workspaceRouter;
