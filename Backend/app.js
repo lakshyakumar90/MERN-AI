@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const connect = require('./db/db');
 const userRouter = require('./routes/user.routes');
 const projectRouter = require('./routes/project.routes');
+const workspaceRouter = require('./routes/workspace.routes');
 
 connect();
 
@@ -18,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Configure CORS to allow credentials
 app.use(cors({
-  origin: 'http://localhost:5173', // Your frontend URL
+  origin: process.env.FRONTEND_URL, // Your frontend URL
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
@@ -28,6 +29,7 @@ app.use(morgan('dev'));
 
 app.use('/api/users', userRouter);
 app.use('/api/project', projectRouter);
+app.use('/api/', workspaceRouter);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
