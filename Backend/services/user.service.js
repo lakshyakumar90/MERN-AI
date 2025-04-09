@@ -23,7 +23,7 @@ const createUser = async ({ username, name, email, password }) => {
         if (error.message === 'User already exists with this email' || error.message === 'Missing required fields: email and password') {
             throw error;
         }
-        throw new Error('Error creating user');
+        throw new Error(error.message);
     }
 }
 

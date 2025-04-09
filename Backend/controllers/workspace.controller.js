@@ -1,6 +1,7 @@
 const express = require('express');
 const { validationResult } = require('express-validator');
 const { createWorkspace } = require('../services/workspace.service');
+const Workspace = require('../models/workspace.model');
 
 const createWorkspaceController = async (req, res) => {
     const error = validationResult(req);
@@ -17,6 +18,7 @@ const createWorkspaceController = async (req, res) => {
 
         return res.status(201).json({
             message: 'Workspace created successfully',
+            success: true,
             workspace
         });
 
@@ -29,6 +31,34 @@ const createWorkspaceController = async (req, res) => {
     }
 }
 
+const getWorkspaceController = async (req, res) => {
+    try {
+        const workspace = await Workspace.find({
+            $or: [
+                { owner: req.user.id },
+                { users: { $elemMatch: { user: req.user.id } } }
+            ]
+        });
+
+        if (!workspace) {
+            return res.status(404).json({
+                message: 'Workspace not found'
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            workspace
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            error: err.message
+        });
+    }
+}
+
 module.exports = {
-    createWorkspaceController
+    createWorkspaceController,
+    getWorkspaceController
 }
