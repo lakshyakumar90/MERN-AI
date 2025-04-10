@@ -1,6 +1,6 @@
 const express = require('express');
 const { userAuth } = require('../middlewares/auth.middleware');
-const { createWorkspaceController, getWorkspaceController, getWorkspaceByIdController, updateWorkspaceController } = require('../controllers/workspace.controller');
+const { createWorkspaceController, getWorkspaceController, getWorkspaceByIdController, updateWorkspaceController, deleteWorkspaceController } = require('../controllers/workspace.controller');
 const { body } = require('express-validator');
 const { workspaceMemberMiddleware, workspaceAdminMiddleware } = require('../middlewares/workspace.middleware');
 
@@ -19,5 +19,6 @@ workspaceRouter.get('/workspace/:workspaceId', userAuth, workspaceMemberMiddlewa
 
 workspaceRouter.put('/workspace/:workspaceId', userAuth, workspaceMemberMiddleware, workspaceAdminMiddleware, updateWorkspaceController);
 
+workspaceRouter.delete('/workspace/:workspaceId', userAuth, workspaceMemberMiddleware, workspaceAdminMiddleware, deleteWorkspaceController);
 
 module.exports = workspaceRouter;

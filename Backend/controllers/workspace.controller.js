@@ -173,9 +173,42 @@ const updateWorkspaceController = async (req, res) => {
     }
 }
 
+const deleteWorkspaceController = async (req, res) => {
+    try {
+        const workspaceId = req.params.workspaceId;
+
+        if (!mongoose.Types.ObjectId.isValid(workspaceId)) {
+            return res.status(400).json({
+                message: 'Invalid workspace ID'
+            })
+        }
+
+        const workspace = await Workspace.findByIdAndDelete(workspaceId);
+        console.log(workspace)
+        if (!workspace) {
+            return res.status(404).json({
+                success: false,
+                message: 'Workspace not found'
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: 'Workspace deleted successfully'
+        })
+    } catch (err) {
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            success: false,
+            error: err.message
+        });
+    }
+}
+
 module.exports = {
     createWorkspaceController,
     getWorkspaceController,
     getWorkspaceByIdController,
-    updateWorkspaceController
+    updateWorkspaceController,
+    deleteWorkspaceController
 }
